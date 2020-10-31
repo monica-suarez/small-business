@@ -1,6 +1,5 @@
 import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-// import Marker from "./Marker";
 
 const Map = (props) => {
   const [selectedBusiness, setSelectedBusiness] = React.useState(null);
