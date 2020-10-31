@@ -1,8 +1,9 @@
 import React from "react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
-import Marker from "./Marker";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+// import Marker from "./Marker";
 
 const Map = (props) => {
+  const [selectedBusiness, setSelectedBusiness] = React.useState(null);
   const mapStyles = {
     height: "65vh",
     width: "100%",
@@ -18,14 +19,16 @@ const Map = (props) => {
   return (
     <LoadScript googleMapsApiKey="AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k">
       <GoogleMap mapContainerStyle={mapStyles} zoom={19} center={defaultCenter}>
-        {
-          <Marker
-            key={props.business.name}
-            position={(props.business.lat, props.business.lng)}
-            name="My Marker"
-            color="red"
-          />
-        }
+        <Marker
+          key={props.business.id}
+          position={{
+            lat: props.business.lat,
+            lng: props.business.lng,
+          }}
+          onClick={() => {
+            setSelectedBusiness(selectedBusiness);
+          }}
+        />
       </GoogleMap>
     </LoadScript>
   );
