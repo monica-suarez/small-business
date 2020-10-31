@@ -21,28 +21,31 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Austin Small Business
           </Typography>
-          {checkAuth ? (
-            <ul className="navbar-list">
+          <ul className="navbar-list">
+            <li className="navbar-item">
+              <Link to="/">Listing</Link>
+            </li>
+            {checkAuth() && (
               <li className="navbar-item">
-                <Link to="/">Listings</Link>
+                <Link to="/addbusiness">Add</Link>
               </li>
+            )}
+            {checkAuth() ? (
+              <li
+                className="navbar-item"
+                onClick={() => {
+                  document.cookie = "loggedIn=";
+                  window.location.replace("/login");
+                }}
+              >
+                <Link to="/login">Logout</Link>
+              </li>
+            ) : (
               <li className="navbar-item">
                 <Link to="/login">Login</Link>
               </li>
-            </ul>
-          ) : (
-            <ul className="navbar-list">
-              <li className="navbar-item">
-                <Link to="/">Listings</Link>
-              </li>
-              <li className="navbar-item">
-                <Link to="/AddBusiness">Add</Link>
-              </li>
-              <li className="navbar-item">
-                <Link to="/login">LOGOUT</Link>
-              </li>
-            </ul>
-          )}
+            )}
+          </ul>
         </Toolbar>
       </AppBar>
     </div>

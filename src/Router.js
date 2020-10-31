@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router";
 import cookie from "cookie";
 import Listings from "./containers/Listings";
-import Login from "./components/LoginPage";
-import AddBusiness from "./components/AddBusiness";
+import Login from "./containers/Login";
+import AddBusiness from "./containers/AddBusiness";
 import ListingInfo from "./containers/ListingInfo";
 
 export const checkAuth = () => {

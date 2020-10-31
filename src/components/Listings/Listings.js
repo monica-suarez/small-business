@@ -60,7 +60,7 @@ const Listings = (props) => {
                 <TableCell>
                   <DeleteIcon
                     className={classes.delete}
-                    onClick={(index) => props.deleteBusiness(idx, index)}
+                    onClick={(index) => props.removeBusiness(idx, index)}
                   />
                 </TableCell>
               )}

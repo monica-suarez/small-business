@@ -11,3 +11,10 @@ export const removeBusiness = (idx) => {
     value: idx,
   };
 };
+
+export const userLogin = (user) => {
+  return {
+    type: "USER_LOGIN",
+    value: user,
+  };
+};

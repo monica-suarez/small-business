@@ -1,4 +1,4 @@
-export default {
+const state = {
   user: {
     username: "test-user",
   },
@@ -55,3 +55,5 @@ export default {
     },
   ],
 };
+
+export default state;
