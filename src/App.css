@@ -17,3 +17,8 @@ a {
   color: rgb(231, 231, 231);
   font-weight: lighter;
 }
+.listing-link {
+  color: black;
+  text-decoration: underline;
+  font-weight: 400;
+}

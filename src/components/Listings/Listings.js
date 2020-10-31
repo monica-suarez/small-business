@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Table,
@@ -8,7 +9,7 @@ import {
   TableBody,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-// import { DeleteIcon } from "@material-ui/icons";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { checkAuth } from "../../Router";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +17,12 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 50,
     paddingLeft: "10%",
     paddingRight: "10%",
+  },
+  title: {
+    color: "gray",
+  },
+  delete: {
+    color: "tomato",
   },
 }));
 
@@ -26,16 +33,38 @@ const Listings = (props) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Hours</TableCell>
-            <TableCell>Address</TableCell>
-            {checkAuth() && <TableCell>Delete</TableCell>}
+            <TableCell className={classes.title}>Name</TableCell>
+            <TableCell className={classes.title}>Description</TableCell>
+            <TableCell className={classes.title}>Hours</TableCell>
+            <TableCell className={classes.title}>Address</TableCell>
+            {checkAuth() && (
+              <TableCell className={classes.title}>Delete</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
           {props.businesses.map((business, idx) => (
-            <TableRow key={idx}></TableRow>
+            <TableRow key={idx}>
+              <TableCell>
+                <Link
+                  to={`/listinginfo/${business.id}`}
+                  className="listing-link"
+                >
+                  {business["name"]}
+                </Link>
+              </TableCell>
+              <TableCell>{business["description"]}</TableCell>
+              <TableCell>{business["hours"]}</TableCell>
+              <TableCell>{business["address"]}</TableCell>
+              {checkAuth() && (
+                <TableCell>
+                  <DeleteIcon
+                    className={classes.delete}
+                    onClick={(index) => props.deleteBusiness(idx, index)}
+                  />
+                </TableCell>
+              )}
+            </TableRow>
           ))}
         </TableBody>
       </Table>
