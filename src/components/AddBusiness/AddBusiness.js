@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, TextField, Button } from "@material-ui/core";
 import Geocode from "react-geocode";
@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
 
 const AddBusiness = (props) => {
   const classes = useStyles();
-  const [name, setName] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [hours, setHours] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [lat, setLat] = React.useState("");
-  const [lng, setLng] = React.useState("");
-  const [newBusiness, setNewBusiness] = React.useState(null);
+  const [name, setName] = useState(null);
+  const [address, setAddress] = useState("");
+  const [hours, setHours] = useState("");
+  const [description, setDescription] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+  const [newBusiness, setNewBusiness] = useState(null);
   const addNewBusiness = {
-    id: props.business.length + 1,
+    id: props.businesses.length + 1,
     name: name,
     description: description,
     address: address,
@@ -50,7 +50,7 @@ const AddBusiness = (props) => {
 
   Geocode.setApiKey("AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k");
 
-  Geocode.fromAddress(address).then(
+  Geocode.fromAddress(String(address)).then(
     (response) => {
       const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
@@ -61,6 +61,10 @@ const AddBusiness = (props) => {
       console.error(error);
     }
   );
+
+  useEffect(() => {
+    console.log(props.businesses);
+  });
 
   const handleChange = (e) => {
     if (e.target.name === "name") {
@@ -77,7 +81,7 @@ const AddBusiness = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => (e) => {
     e.preventDefault();
     props.addBusiness(addNewBusiness);
   };
@@ -88,8 +92,8 @@ const AddBusiness = (props) => {
   };
 
   const defaultCenter = {
-    lat: lat,
-    lng: lng,
+    lat: Number(lat),
+    lng: Number(lng),
   };
   return (
     <Box
@@ -104,23 +108,39 @@ const AddBusiness = (props) => {
         className={classes.formContainer}
       >
         <form onSubmit={handleSubmit((b) => setNewBusiness(b))}>
-          <TextField className={classes.input} placeholder="Name" />
+          <TextField
+            className={classes.input}
+            placeholder="Name"
+            name="name"
+            onChange={handleChange}
+          />
           <br />
-          <TextField className={classes.input} placeholder="Address" />
+          <TextField
+            className={classes.input}
+            placeholder="Address"
+            name="address"
+            onChange={handleChange}
+          />
           <br />
           <TextField
             className={classes.input}
             placeholder="Hours ex. 8AM-9PM"
+            name="hours"
+            onChange={handleChange}
           />
           <br />
-          <TextField className={classes.input} placeholder="Description" />
+          <TextField
+            className={classes.input}
+            placeholder="Description"
+            name="description"
+            onChange={handleChange}
+          />
           <br />
           <Button
             className={classes.button}
             color="primary"
             variant="contained"
             type="submit"
-            onSubmit={handleSubmit((b) => setNewBusiness(b))}
           >
             Save
           </Button>
@@ -140,8 +160,8 @@ const AddBusiness = (props) => {
             <Marker
               //   key={props.business.id}
               position={{
-                lat: lat,
-                lng: lng,
+                lat: Number(lat),
+                lng: Number(lng),
               }}
               onClick={() => {
                 setNewBusiness(newBusiness);

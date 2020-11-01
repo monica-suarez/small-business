@@ -41,7 +41,7 @@ const Login = (props) => {
           className={classes.loginInput}
           placeholder="username"
           onChange={handleChange}
-          userName={userName}
+          username={userName}
         />
         <TextField className={classes.loginInput} placeholder="password" />
         <Button
