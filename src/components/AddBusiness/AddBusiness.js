@@ -1,6 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, TextField, Button } from "@material-ui/core";
+import Geocode from "react-geocode";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,11 +31,65 @@ const useStyles = makeStyles((theme) => ({
 
 const AddBusiness = (props) => {
   const classes = useStyles();
+  const [name, setName] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [hours, setHours] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [lat, setLat] = React.useState("");
+  const [lng, setLng] = React.useState("");
   const [newBusiness, setNewBusiness] = React.useState(null);
-  const handleSubmit = () => () => {
-    document.cookie = "loggedIn = true; max-age = 60*1000";
-    props.addBusiness(newBusiness);
-    setNewBusiness(newBusiness);
+  const addNewBusiness = {
+    id: props.business.length + 1,
+    name: name,
+    description: description,
+    address: address,
+    hours: hours,
+    lat: lat,
+    lng: lng,
+  };
+
+  Geocode.setApiKey("AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k");
+
+  Geocode.fromAddress(address).then(
+    (response) => {
+      const { lat, lng } = response.results[0].geometry.location;
+      console.log(lat, lng);
+      setLat(lat);
+      setLng(lng);
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  const handleChange = (e) => {
+    if (e.target.name === "name") {
+      setName(e.target.value);
+    }
+    if (e.target.name === "address") {
+      setAddress(e.target.value);
+    }
+    if (e.target.name === "hours") {
+      setHours(e.target.value);
+    }
+    if (e.target.name === "description") {
+      setDescription(e.target.value);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.addBusiness(addNewBusiness);
+  };
+
+  const mapStyles = {
+    height: "60vh",
+    width: "100%",
+  };
+
+  const defaultCenter = {
+    lat: lat,
+    lng: lng,
   };
   return (
     <Box
@@ -75,7 +131,24 @@ const AddBusiness = (props) => {
         display="flex"
         flexDirection="column"
       >
-        <iframe title="map" className="map" />
+        <LoadScript googleMapsApiKey="AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k">
+          <GoogleMap
+            mapContainerStyle={mapStyles}
+            zoom={15}
+            center={defaultCenter}
+          >
+            <Marker
+              //   key={props.business.id}
+              position={{
+                lat: lat,
+                lng: lng,
+              }}
+              onClick={() => {
+                setNewBusiness(newBusiness);
+              }}
+            />
+          </GoogleMap>
+        </LoadScript>
       </Box>
     </Box>
   );
