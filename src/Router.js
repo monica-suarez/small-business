@@ -26,13 +26,17 @@ const Router = () => {
   return (
     <Switch>
       <Route path="/login" component={Login} />
-      {checkAuth() ? (
+      {!checkAuth() ? (
         <Route exact path="/" component={Listings} />
       ) : (
         <ProtectedRoute exact path="/" component={Listings} />
       )}
       <ProtectedRoute path="/addbusiness" component={AddBusiness} />
-      <Route path="/listinginfo/:id" component={ListingInfo} />
+      {!checkAuth() ? (
+        <Route path="/listinginfo/:id" component={ListingInfo} />
+      ) : (
+        <ProtectedRoute path="/listinginfo/:id" component={ListingInfo} />
+      )}
     </Switch>
   );
 };

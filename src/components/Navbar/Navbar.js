@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Paper, Slide } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { checkAuth } from "../../Router";
@@ -11,8 +11,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  welcome: {
+    backgroundColor: "lightgray",
+    color: "black",
+    height: 24,
+    width: "99%",
+    paddingLeft: "1%",
+    fontSize: 18,
+    fontWeight: "100",
+  },
 }));
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -48,6 +57,15 @@ const Navbar = () => {
           </ul>
         </Toolbar>
       </AppBar>
+      {checkAuth() ? (
+        <Slide direction="down" in={checkAuth()}>
+          <Paper
+            className={classes.welcome}
+          >{`Welcome ${props.userName}!`}</Paper>
+        </Slide>
+      ) : (
+        <div />
+      )}
     </div>
   );
 };
