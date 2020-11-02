@@ -47,8 +47,7 @@ const AddBusiness = (props) => {
     lat: lat,
     lng: lng,
   };
-
-  Geocode.setApiKey("AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k");
+  Geocode.setApiKey(process.env.REACT_APP_GEOCODE_API_KEY);
 
   Geocode.fromAddress(String(address)).then(
     (response) => {

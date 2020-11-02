@@ -35,7 +35,12 @@ const Login = (props) => {
     window.location.replace("/");
   };
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      onSubmit={handleClick}
+      noValidate
+      autoComplete="off"
+    >
       <Box display="flex" flexDirection="column">
         <TextField
           className={classes.loginInput}
@@ -44,11 +49,7 @@ const Login = (props) => {
           username={userName}
         />
         <TextField className={classes.loginInput} placeholder="password" />
-        <Button
-          className={classes.button}
-          variant="contained"
-          onClick={handleClick}
-        >
+        <Button className={classes.button} type="submit" variant="contained">
           Login
         </Button>
       </Box>

@@ -13,16 +13,17 @@ const useStyles = makeStyles((theme) => ({
   },
   welcome: {
     backgroundColor: "lightgray",
-    color: "black",
+    color: "rgb(75, 75, 75)",
     height: 24,
-    width: "99%",
-    paddingLeft: "1%",
+    width: "98%",
+    paddingLeft: "2%",
     fontSize: 18,
     fontWeight: "100",
   },
 }));
 const Navbar = (props) => {
   const classes = useStyles();
+  console.log(props.userName);
   return (
     <div className={classes.root}>
       <AppBar position="relative">
