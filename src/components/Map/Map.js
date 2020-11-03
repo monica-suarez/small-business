@@ -9,7 +9,7 @@ const Map = (props) => {
     marginRight: 2,
     marginTop: 50,
   };
-
+  console.log(process.env.REACT_APP_GEOCODE_API_KEY);
   const defaultCenter = {
     lat: props.lat,
     lng: props.lng,
