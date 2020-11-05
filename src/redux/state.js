@@ -1,7 +1,6 @@
-const state = {
-  user: {
-    username: "test-user",
-  },
+/* eslint-disable */
+export default {
+  user: "",
   businesses: [
     {
       "id": 1,
@@ -55,5 +54,3 @@ const state = {
     },
   ],
 };
-
-export default state;

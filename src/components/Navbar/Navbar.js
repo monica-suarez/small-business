@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Navbar = (props) => {
   const classes = useStyles();
-  console.log(props.userName);
+  console.log(props.user);
   return (
     <div className={classes.root}>
       <AppBar position="relative">
@@ -58,15 +58,9 @@ const Navbar = (props) => {
           </ul>
         </Toolbar>
       </AppBar>
-      {checkAuth() ? (
-        <Slide direction="down" in={checkAuth()}>
-          <Paper
-            className={classes.welcome}
-          >{`Welcome ${props.userName}!`}</Paper>
-        </Slide>
-      ) : (
-        <div />
-      )}
+      <Slide direction="down" in={checkAuth()}>
+        <Paper className={classes.welcome}>Welcome: {props.user}!</Paper>
+      </Slide>
     </div>
   );
 };

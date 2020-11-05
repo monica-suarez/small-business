@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, TextField, Button } from "@material-ui/core";
 import Geocode from "react-geocode";
@@ -60,10 +60,6 @@ const AddBusiness = (props) => {
       console.error(error);
     }
   );
-
-  useEffect(() => {
-    console.log(props.businesses);
-  });
 
   const handleChange = (e) => {
     if (e.target.name === "name") {

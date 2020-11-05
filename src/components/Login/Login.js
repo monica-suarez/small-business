@@ -23,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
   const classes = useStyles();
   const [userName, setUserName] = React.useState("");
-  const handleChange = (evt) => {
-    if (evt.target.name === "userName") {
-      setUserName(evt.target.value);
+  const handleChange = (e) => {
+    if (e.target.name === "userName") {
+      setUserName(e.target.value);
     }
   };
   const handleClick = (e) => {
     e.preventDefault();
     document.cookie = "loggedIn = true; max-age = 60*1000";
     props.userLogin(userName);
+    // props.history.push("/");
     window.location.replace("/");
   };
   return (
@@ -46,9 +47,15 @@ const Login = (props) => {
           className={classes.loginInput}
           placeholder="username"
           onChange={handleChange}
-          username={userName}
+          name="userName"
+          type="text"
         />
-        <TextField className={classes.loginInput} placeholder="password" />
+        <TextField
+          className={classes.loginInput}
+          placeholder="password"
+          type="password"
+          name="password"
+        />
         <Button className={classes.button} type="submit" variant="contained">
           Login
         </Button>
