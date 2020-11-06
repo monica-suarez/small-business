@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, TextField, Button } from "@material-ui/core";
+import { Box, TextField, Button, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,46 +21,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+  console.log(typeof props.user);
   const classes = useStyles();
-  const [userName, setUserName] = React.useState("");
+  const [userName, setUserName] = useState("");
   const handleChange = (e) => {
     if (e.target.name === "userName") {
       setUserName(e.target.value);
     }
   };
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     document.cookie = "loggedIn = true; max-age = 60*1000";
     props.userLogin(userName);
-    // props.history.push("/");
-    window.location.replace("/");
+    props.history.push("/");
+    // window.location.replace("/");
   };
   return (
-    <form
-      className={classes.root}
-      onSubmit={handleClick}
-      noValidate
-      autoComplete="off"
-    >
-      <Box display="flex" flexDirection="column">
-        <TextField
-          className={classes.loginInput}
-          placeholder="username"
-          onChange={handleChange}
-          name="userName"
-          type="text"
-        />
-        <TextField
-          className={classes.loginInput}
-          placeholder="password"
-          type="password"
-          name="password"
-        />
-        <Button className={classes.button} type="submit" variant="contained">
-          Login
-        </Button>
-      </Box>
-    </form>
+    <div className="login-page">
+      <Container>
+        <form className={classes.root} onSubmit={handleSubmit}>
+          <Box display="flex" flexDirection="column">
+            <TextField
+              required
+              className={classes.loginInput}
+              onChange={handleChange}
+              name="userName"
+              label="username"
+              type="text"
+            />
+            <TextField
+              className={classes.loginInput}
+              onChange={handleChange}
+              name="password"
+              label="password"
+              type="password"
+            />
+            <Button
+              className={classes.button}
+              type="submit"
+              variant="contained"
+            >
+              Login
+            </Button>
+          </Box>
+        </form>
+      </Container>
+    </div>
   );
 };
 

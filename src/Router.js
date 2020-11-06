@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router";
-import cookie from "cookie";
 import Listings from "./containers/Listings";
 import Login from "./containers/Login";
 import AddBusiness from "./containers/AddBusiness";
 import ListingInfo from "./containers/ListingInfo";
+import cookie from "cookie";
 
 export const checkAuth = () => {
   const cookies = cookie.parse(document.cookie);
@@ -26,17 +26,9 @@ const Router = () => {
   return (
     <Switch>
       <Route path="/login" component={Login} />
-      {!checkAuth() ? (
-        <Route exact path="/" component={Listings} />
-      ) : (
-        <ProtectedRoute exact path="/" component={Listings} />
-      )}
+      <Route exact path="/" component={Listings} />
       <ProtectedRoute path="/addbusiness" component={AddBusiness} />
-      {!checkAuth() ? (
-        <Route path="/listinginfo/:id" component={ListingInfo} />
-      ) : (
-        <ProtectedRoute path="/listinginfo/:id" component={ListingInfo} />
-      )}
+      <Route path="/listinginfo/:id" component={ListingInfo} />
     </Switch>
   );
 };
