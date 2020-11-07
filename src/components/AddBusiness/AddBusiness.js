@@ -90,6 +90,7 @@ const AddBusiness = (props) => {
     lat: Number(lat),
     lng: Number(lng),
   };
+  const API_KEY = process.env.REACT_APP_GEOCODE_API_KEY;
   return (
     <Box
       className={classes.root}
@@ -146,7 +147,7 @@ const AddBusiness = (props) => {
         display="flex"
         flexDirection="column"
       >
-        <LoadScript googleMapsApiKey="AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k">
+        <LoadScript googleMapsApiKey={API_KEY}>
           <GoogleMap
             mapContainerStyle={mapStyles}
             zoom={15}

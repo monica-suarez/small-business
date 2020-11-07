@@ -9,14 +9,14 @@ const Map = (props) => {
     marginRight: 2,
     marginTop: 50,
   };
-  console.log(process.env.REACT_APP_GEOCODE_API_KEY);
   const defaultCenter = {
     lat: props.lat,
     lng: props.lng,
   };
+  const API_KEY = process.env.REACT_APP_GEOCODE_API_KEY;
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyC8r2IDLhUdDgjAinNaflgkyQTxZO2Ne - k">
+    <LoadScript googleMapsApiKey={API_KEY}>
       <GoogleMap mapContainerStyle={mapStyles} zoom={19} center={defaultCenter}>
         <Marker
           key={props.business.id}

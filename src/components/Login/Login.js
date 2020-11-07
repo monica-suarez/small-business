@@ -34,7 +34,6 @@ const Login = (props) => {
     document.cookie = "loggedIn = true; max-age = 60*1000";
     props.userLogin(userName);
     props.history.push("/");
-    // window.location.replace("/");
   };
   return (
     <div className="login-page">
